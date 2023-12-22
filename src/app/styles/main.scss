@@ -1,0 +1,19 @@
+@import 'themes/dark';
+@import 'themes/light';
+@import 'variables/global';
+@import 'normalize.css';
+@import 'fonts/fonts.scss';
+
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  background: var(--dark);
+  color: var(--light);
+}

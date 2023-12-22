@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/", //Не особо полезен, т.к. есть вебпак
+    "noImplicitAny": true, // Не разрешаем использовать any
+    "module": "ESNext",
+    "baseUrl": ".",
+    "jsx": "react-jsx",
+    "allowJs": true,
+    "target": "es5",
+    "moduleResolution": "Node",
+    "esModuleInterop": true, // вместо require используем import
+    "allowSyntheticDefaultImports": true, // разрешает export default, чтобы не использовали '* as'
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
+  "ts-node": { // Cannot use import outside module
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  }
+}

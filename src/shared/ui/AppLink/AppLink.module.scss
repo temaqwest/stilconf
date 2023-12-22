@@ -1,0 +1,24 @@
+.AppLink {
+  text-decoration: none;
+  padding: 10px 25px;
+  font-weight: 200;
+  border-radius: var(--rad-2);
+  background: rgba(255, 255, 255, .1);
+  color: var(--neutral-2);
+  border: 1px solid var(--neutral-2);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: color .2s ease-in-out, border .2s ease-in-out;
+  position: relative;
+
+
+  &:hover {
+    color: var(--light);
+    border-color: var(--light);
+  }
+}
+
+.AppLink.linkActive {
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
