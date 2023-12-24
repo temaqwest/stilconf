@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "./dist/", //Не особо полезен, т.к. есть вебпак
-    "noImplicitAny": true, // Не разрешаем использовать any
+    "noImplicitAny": true,
     "module": "ESNext",
     "baseUrl": ".",
     "jsx": "react-jsx",

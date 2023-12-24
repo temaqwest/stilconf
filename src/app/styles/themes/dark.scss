@@ -1,5 +1,6 @@
 .app.dark {
-  --dark: #000000;
-  --light: #FFFFFF;
+  --background: var(--deep-dark);
+  --navbar-background: var(--medium-dark);
+  --text: var(--neutral-8);
   --accent: var(--blue-3);
 }

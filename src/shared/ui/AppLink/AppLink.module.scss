@@ -1,24 +1,24 @@
 .AppLink {
   text-decoration: none;
-  padding: 10px 25px;
-  font-weight: 200;
-  border-radius: var(--rad-2);
-  background: rgba(255, 255, 255, .1);
-  color: var(--neutral-2);
-  border: 1px solid var(--neutral-2);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: color .2s ease-in-out, border .2s ease-in-out;
+  padding: 0;
+  color: var(--text);
+  transition: border-color .2s ease-in-out, opacity .2s ease-in-out;
   position: relative;
+  border-left: 3px solid transparent;
+  opacity: 0.5;
 
 
   &:hover {
-    color: var(--light);
-    border-color: var(--light);
+    opacity: 0.8;
   }
 }
 
 .AppLink.linkActive {
-  color: var(--accent);
-  border: 1px solid var(--accent);
+  border-left-color: var(--text);
+  opacity: 1;
+}
+
+.AppLink .AppLinkIcon {
+  width: 30px;
+  height: 30px;
 }
