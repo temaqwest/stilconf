@@ -5,17 +5,20 @@ import {AppRouter} from "@/app/providers/router";
 import {NavigationBar} from "@/widgets/NavigationBar";
 // @ts-ignore
 import IconsSprite from "@/shared/assets/iconsSprite";
+import {Suspense} from "react";
 function App() {
     const {theme} = useTheme()
 
     return (
-        <div className={classNames('app', {}, [theme])}>
-            <IconsSprite/>
-            <NavigationBar/>
-            <main className="main">
-                <AppRouter/>
-            </main>
-        </div>
+        <Suspense fallback="">
+            <div className={classNames('app', {}, [theme])}>
+                <IconsSprite/>
+                <NavigationBar/>
+                <main className="main">
+                    <AppRouter/>
+                </main>
+            </div>
+        </Suspense>
     );
 }
 
