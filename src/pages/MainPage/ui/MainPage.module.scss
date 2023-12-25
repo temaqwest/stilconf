@@ -1,3 +1,24 @@
-.main-page {
-  background: var(--background);
+.MainPage {
+  padding: 50px;
+  height: inherit;
+  width: inherit;
+}
+
+.MainGrid {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+  gap: 70px;
+}
+
+.ActionsColumn, .InfoColumn {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  gap: 20px;
+}
+
+.InfoColumn {
+  flex: 1 0;
 }

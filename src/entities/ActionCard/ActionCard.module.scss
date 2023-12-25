@@ -1,0 +1,70 @@
+.ActionCard {
+  padding: 20px;
+  border-radius: 20px;
+  width: 250px;
+  height: 220px;
+  background: var(--neutral-2);
+  color: var(--neutral-8);
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  transition: all .2s ease-in-out;
+  cursor: pointer;
+  user-select: none;
+
+
+  &:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.09), 0 6px 6px rgba(0,0,0,0.11);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: scale(0.98);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15), 0 3px 3px rgba(0,0,0,0.2);
+  }
+}
+
+
+.ActionCardIcon {
+  color: var(--neutral-1);
+  width: 90px;
+  height: 90px;
+  padding: 15px;
+  background-color: var(--neutral-8);
+  border-radius: 10px;
+}
+
+.ActionCardTitle {
+  font-size: var(--fz-xl);
+  margin-bottom: 10px;
+}
+
+.ActionCardSubtitle {
+  font-size: var(--fz-s);
+  font-weight: 200;
+}
+
+.purple {
+  background: var(--purple);
+
+  .ActionCardIcon {
+    color: var(--purple);
+  }
+}
+
+.blue {
+  background: var(--blue);
+
+  .ActionCardIcon {
+    color: var(--blue);
+  }
+}
+
+.green {
+  background: var(--green);
+
+  .ActionCardIcon {
+    color: var(--green);
+  }
+}
