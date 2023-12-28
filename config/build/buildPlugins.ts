@@ -28,6 +28,7 @@ export default function buildPlugins({paths, isDev}: BuildOptions): webpack.Webp
             patterns: [
                 { from: 'public/locales', to: 'locales' }
             ]
-        })
+        }),
+        new webpack.HotModuleReplacementPlugin()
     ]
 }

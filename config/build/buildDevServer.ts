@@ -8,6 +8,7 @@ export default function buildDevServer({paths, port}: BuildOptions):DevServerCon
         port,
         open: false, // Открытие вебстраницы при запуске dev-server
         historyApiFallback: true,
+        hot: true,
         client: {
             overlay: true
         }

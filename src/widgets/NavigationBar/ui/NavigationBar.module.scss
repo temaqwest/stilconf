@@ -12,6 +12,10 @@
 
 .navbarTop {
   margin-bottom: 100px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  gap: 10px;
 }
 
 .navbarItem {

@@ -1,0 +1,32 @@
+.LanguageSwitcher {
+  font-weight: 600;
+  font-size: var(--fz-s);
+  color: var(--neutral-8);
+  animation: .2s ease-out letter-up;
+}
+
+.Animated {
+  animation: .2s ease-in alternate both running letter-gone;
+}
+
+@keyframes letter-gone {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+}
+
+@keyframes letter-up {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

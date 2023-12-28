@@ -32,7 +32,13 @@
     "typescript": "^5.0.4",
     "webpack": "^5.82.1",
     "webpack-cli": "^5.1.0",
-    "webpack-dev-server": "^4.15.0"
+    "webpack-dev-server": "^4.15.0",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.5",
+    "babel-loader": "^8.2.3",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "@babel/preset-typescript": "^7.16.7",
+    "babel-plugin-i18next-extract": "^0.8.3"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.0",
