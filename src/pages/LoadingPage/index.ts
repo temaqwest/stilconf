@@ -1,6 +1,5 @@
-import LoadingPage from "./ui/LoadingPage";
-
+import LoadingPage from './ui/LoadingPage'
 
 export {
-    LoadingPage
+	LoadingPage
 }

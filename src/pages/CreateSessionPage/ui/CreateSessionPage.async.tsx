@@ -1,3 +1,3 @@
-import {lazy} from "react";
+import { lazy } from 'react'
 
-export const CreateSessionPageAsync = lazy(() => import('./CreateSessionPage'))
+export const CreateSessionPageAsync = lazy(async () => await import('./CreateSessionPage'))

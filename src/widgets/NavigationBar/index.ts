@@ -1,5 +1,5 @@
-import NavigationBar from "./ui/NavigationBar";
+import NavigationBar from './ui/NavigationBar'
 
 export {
-    NavigationBar
+	NavigationBar
 }

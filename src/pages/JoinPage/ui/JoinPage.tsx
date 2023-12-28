@@ -1,11 +1,11 @@
-import React from 'react';
+import React from 'react'
 
-function JoinPage() {
-    return (
-        <div>
-            <h1>JoinPage</h1>
-        </div>
-    );
+function JoinPage () {
+	return (
+		<div>
+			<h1>JoinPage</h1>
+		</div>
+	)
 }
 
-export default JoinPage;
+export default JoinPage

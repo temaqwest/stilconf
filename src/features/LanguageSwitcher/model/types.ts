@@ -1,6 +1,6 @@
 export const LanguagesList = {
-    RU: 'ru',
-    EN: 'en'
+	RU: 'ru',
+	EN: 'en'
 } as const
 
-export type Languages =  (typeof LanguagesList)[keyof typeof LanguagesList];
+export type Languages = (typeof LanguagesList)[keyof typeof LanguagesList]
