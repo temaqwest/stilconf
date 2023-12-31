@@ -1,0 +1,27 @@
+@import "@/app/styles/mixins/mixins";
+
+.RecentList {
+  position: relative;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  gap: 20px;
+  overflow: scroll;
+  height: inherit;
+}
+
+.Header {
+  @include card-style;
+
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background: rgb(255 255 255 / 20%);
+  box-shadow: 0 4px 30px rgb(0 0 0 / 10%);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgb(255 255 255 / 30%);
+}
+
+.Card {
+  flex: 1 0;
+}

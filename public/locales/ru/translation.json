@@ -1,8 +1,16 @@
 {
-  "joinCardTitle": "Создать",
-  "joinCardSubtitle": "Создать новую конференцию",
-  "createCardTitle": "Присоединиться",
-  "createCardSubtitle": "Через приглашение",
+  "createCardTitle": "Создать",
+  "createCardSubtitle": "Создать новую конференцию",
+  "joinCardTitle": "Присоединиться",
+  "joinCardSubtitle": "Через приглашение",
   "recentCardTitle": "Недавние",
-  "recentCardSubtitle": "Просмотреть недавние встречи"
+  "recentCardSubtitle": "Просмотреть недавние встречи",
+  "camera": "Камера",
+  "microphone": "Микрофон",
+  "off": "Выключено ❌",
+  "on": "Включено ✅",
+  "readyToJoin": "Готовы присоединиться?",
+  "join": "Присоединиться",
+  "havingTroubles": "У вас проблемы с доступом к камере или микрофону? Решайте их сами, мы в вас верим!",
+  "mainRecentTitle": "Ваши недавние конференции"
 }

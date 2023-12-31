@@ -1,0 +1,16 @@
+@import "@/app/styles/mixins/mixins";
+
+.RecentCard {
+  @include card-style;
+
+  min-height: 100px;
+  width: 100%;
+
+  &:hover {
+    border: 1px solid rgb(255 255 255 / 10%);
+  }
+
+  &:active {
+    border: 1px solid rgb(255 255 255 / 30%);
+  }
+}

@@ -4,8 +4,8 @@
   border: none;
   outline: none;
   color: var(--text);
-  background: rgba(255, 255, 255, 0);
-  transition: color .2s ease-in-out;
+  background: rgb(255 255 255 / 0%);
+  transition: all 1s ease-in-out;
   cursor: pointer;
 }
 
@@ -14,7 +14,7 @@
   height: 30px;
 }
 
-
 .Dark {
+  transform: rotate(360deg);
   color: var(--yellow);
 }

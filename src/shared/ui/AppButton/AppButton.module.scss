@@ -7,9 +7,8 @@
   margin: 0;
   border: none;
   outline: none;
-  background: rgba(255, 255, 255, 0);
+  background: rgb(255 255 255 / 0%);
 }
-
 
 .primary {
   padding: 8px 16px;
@@ -18,10 +17,25 @@
   font-size: var(--fz-s);
   outline: none;
   border-radius: 100px;
-  transition: all .2s ease-in-out;
-  border: 1px solid rgba(255, 255, 255, 0);
+  transition: all 0.2s ease-in-out;
+  border: 1px solid rgb(255 255 255 / 0%);
 
   &:hover {
     background: var(--medium-blue);
   }
+}
+
+.large {
+  font-size: var(--fz-l);
+  padding: 16px 30px;
+}
+
+.medium {
+  font-size: var(--fz-m);
+  padding: 12px 24px;
+}
+
+.small {
+  font-size: var(--fz-s);
+  padding: 8px 16px;
 }
