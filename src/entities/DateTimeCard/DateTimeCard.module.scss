@@ -1,21 +1,21 @@
-@import '@/app/styles/mixins/mixins';
+@import "@/app/styles/mixins/mixins";
 
 .DateTimeCard {
-    @include card-style;
+	@include card-style;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 110px;
-    width: 100%;
-    background: var(--navbar-background);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: 110px;
+	width: 100%;
+	background: var(--navbar-background);
 }
 
 .Date {
-    font-size: var(--fz-xl);
-    font-weight: 300;
+	font-size: var(--fz-xl);
+	font-weight: 300;
 }
 
 .Time {
-    font-size: 4rem;
+	font-size: 4rem;
 }

@@ -1,4 +1,3 @@
-import path from 'path'
 import type webpack from 'webpack'
 import { type BuildOptions } from './types/config'
 import buildResolvers from './buildResolvers'

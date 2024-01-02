@@ -4,7 +4,6 @@ import React, { type FC } from 'react'
 import { NavLink, type NavLinkProps } from 'react-router-dom'
 import AppIcon from '@/shared/ui/AppIcon/AppIcon'
 import { AppRoutes } from '@/shared/config/routeConfig/routeConfig'
-
 interface AppLinkProps extends NavLinkProps {
     className?: string
     route: AppRoutes

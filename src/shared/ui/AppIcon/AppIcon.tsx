@@ -1,7 +1,6 @@
 import { classNames } from '@/shared/lib/classNames/classNames'
 import cls from './AppIcon.module.scss'
 import React, { type FC } from 'react'
-import { NavLink } from 'react-router-dom'
 
 interface AppIconProps {
     name?: string

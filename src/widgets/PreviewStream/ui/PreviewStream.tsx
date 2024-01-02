@@ -4,8 +4,6 @@ import cls from './PreviewStream.module.scss'
 import { ToggleMedia } from '@/features/ToggleAudio'
 import { useTranslation } from 'react-i18next'
 import { useUserStream } from '@/widgets/PreviewStream/lib/useUserStream'
-import { Simulate } from 'react-dom/test-utils'
-import error = Simulate.error
 
 interface PreviewStreamProps {
     className?: string

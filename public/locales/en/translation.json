@@ -13,5 +13,9 @@
     "join": "Join",
     "havingTroubles": "Are you having trouble accessing your camera or microphone? Solve them yourself, we believe in you!",
     "mainRecentTitle": "Your recent conferences",
-    "NotAllowedError": "Not allowed to use internal devices"
+    "NotAllowedError": "Not allowed to use internal devices",
+    "createSession": "Create conference and share your ideas!",
+    "create": "Create",
+    "createSessionDescription": "After creating a conference, a unique link will be generated for you and your guests, which will lead to your room",
+    "newlink": "Room address"
 }

@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 export function useUserStream() {
     async function startCapture(
         displayMediaOptions: DisplayMediaStreamOptions

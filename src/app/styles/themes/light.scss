@@ -1,7 +1,9 @@
 .app.light {
-    --background: var(--regular-blue);
-    --navbar-background: var(--medium-blue);
-    --text: var(--neutral-8);
-    --secondary-text: var(--neutral-5);
-    --accent: var(--blue-3);
+	--background: var(--regular-blue);
+	--navbar-background: var(--medium-blue);
+	--text: var(--neutral-8);
+	--secondary-text: var(--neutral-5);
+	--accent: var(--blue-3);
+	--input-background: var(--text);
+	--input-text: var(--deep-dark);
 }

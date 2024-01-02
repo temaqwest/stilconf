@@ -1,10 +1,10 @@
 @mixin card-style() {
-    padding: 20px;
-    border-radius: 10px;
-    background: var(--navbar-background);
-    color: var(--neutral-8);
-    border: 1px solid rgb(255 255 255 / 0%);
-    transition: all 0.2s ease-in-out;
-    cursor: pointer;
-    user-select: none;
+	padding: 20px;
+	border-radius: 10px;
+	background: var(--navbar-background);
+	color: var(--neutral-8);
+	border: 1px solid rgb(255 255 255 / 0%);
+	transition: all 0.2s ease-in-out;
+	cursor: pointer;
+	user-select: none;
 }
