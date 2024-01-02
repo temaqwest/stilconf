@@ -16,39 +16,29 @@
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
-    "plugins": [
-        "@typescript-eslint",
-        "react",
-        "i18next"
-    ],
+    "plugins": ["@typescript-eslint", "react", "i18next"],
     "rules": {
-        "indent": [
-            "error",
-            4
-        ],
-        "linebreak-style": [
-            "error",
-            "unix"
-        ],
-        "quotes": [
-            "error",
-            "single"
-        ],
-        "semi": [
-            "error",
-            "never"
-        ],
+        "indent": ["error", 4],
+        "linebreak-style": ["error", "unix"],
+        "quotes": ["error", "single"],
+        "semi": ["error", "never"],
         "object-curly-spacing": ["error", "always"],
         "@typescript-eslint/explicit-function-return-type": "off",
         "no-unused-vars": "warn",
         "@typescript-eslint/no-unused-vars": "warn",
         "react/react-in-jsx-scope": "off",
         "react/jsx-uses-react": "off",
-        "i18next/no-literal-string": ["error", {
-            "markupOnly": true
-        }],
-        "max-len": ["error", {
-            "ignoreComments": true
-        }]
+        "i18next/no-literal-string": [
+            "error",
+            {
+                "markupOnly": true
+            }
+        ],
+        "max-len": [
+            "error",
+            {
+                "ignoreComments": true
+            }
+        ]
     }
 }

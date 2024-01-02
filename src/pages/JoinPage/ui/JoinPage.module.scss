@@ -1,28 +1,28 @@
 .JoinPage {
-  padding: 50px;
-  height: inherit;
-  width: inherit;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 50px;
+    padding: 50px;
+    height: inherit;
+    width: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
 }
 
 .Column {
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  gap: 20px;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    gap: 20px;
 }
 
 .Title {
-  text-align: center;
-  font-size: var(--fz-xl);
+    text-align: center;
+    font-size: var(--fz-xl);
 }
 
 .Subtitle {
-  text-align: center;
-  font-size: var(--fz-xs);
-  color: var(--secondary-text);
-  line-height: 140%;
+    text-align: center;
+    font-size: var(--fz-xs);
+    color: var(--secondary-text);
+    line-height: 140%;
 }

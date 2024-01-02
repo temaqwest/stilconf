@@ -1,7 +1,10 @@
 import { type BuildOptions } from './types/config'
 import type { Configuration as DevServerConf } from 'webpack-dev-server'
 
-export default function buildDevServer ({ paths, port }: BuildOptions): DevServerConf {
+export default function buildDevServer({
+    paths,
+    port
+}: BuildOptions): DevServerConf {
     return {
         static: paths.html,
         compress: true,

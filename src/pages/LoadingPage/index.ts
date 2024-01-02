@@ -1,5 +1,3 @@
 import LoadingPage from './ui/LoadingPage'
 
-export {
-	LoadingPage
-}
+export { LoadingPage }

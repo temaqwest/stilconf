@@ -1,5 +1,3 @@
 import ToggleMedia from './ui/ToggleMedia'
 
-export {
-	ToggleMedia
-}
+export { ToggleMedia }

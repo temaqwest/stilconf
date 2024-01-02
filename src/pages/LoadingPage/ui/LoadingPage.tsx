@@ -3,11 +3,11 @@ import React from 'react'
 import cls from './LoadingPage.module.scss'
 
 const LoadingPage = () => {
-	return (
-		<div className={cls.LoadingPage}>
-			<AppLoader/>
-		</div>
-	)
+    return (
+        <div className={cls.LoadingPage}>
+            <AppLoader />
+        </div>
+    )
 }
 
 export default LoadingPage

@@ -6,17 +6,26 @@ import AppIcon from '@/shared/ui/AppIcon/AppIcon'
 import AppButton, { ButtonTheme } from '@/shared/ui/AppButton/AppButton'
 
 interface ThemeSwitcherProps {
-  className?: string
+    className?: string
 }
 
 const ThemeSwitcher = ({ className }: ThemeSwitcherProps) => {
-	const { theme, toggleTheme } = useTheme()
+    const { theme, toggleTheme } = useTheme()
 
-	return (
-		<AppButton onClick={toggleTheme} title="Сменить тему" theme={ButtonTheme.CLEAR} className={classNames(cls.ThemeSwitcher, { [cls?.Dark]: theme === Theme.DARK }, [className])}>
-			<AppIcon name="theme" className={cls.ThemeSwitcherIcon}/>
-		</AppButton>
-	)
+    return (
+        <AppButton
+            onClick={toggleTheme}
+            title='Сменить тему'
+            theme={ButtonTheme.CLEAR}
+            className={classNames(
+                cls.ThemeSwitcher,
+                { [cls?.Dark]: theme === Theme.DARK },
+                [className]
+            )}
+        >
+            <AppIcon name='theme' className={cls.ThemeSwitcherIcon} />
+        </AppButton>
+    )
 }
 
 export default ThemeSwitcher

@@ -1,12 +1,16 @@
 import { useState } from 'react'
 
 export function useUserStream() {
-    async function startCapture(displayMediaOptions: DisplayMediaStreamOptions) {
+    async function startCapture(
+        displayMediaOptions: DisplayMediaStreamOptions
+    ) {
         let captureStream = null
 
         try {
             captureStream =
-                await navigator.mediaDevices.getDisplayMedia(displayMediaOptions)
+                await navigator.mediaDevices.getDisplayMedia(
+                    displayMediaOptions
+                )
         } catch (err) {
             console.error(`Error: ${err}`)
         }

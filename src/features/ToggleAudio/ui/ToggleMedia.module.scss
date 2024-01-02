@@ -1,27 +1,27 @@
 .ToggleMedia {
-  width: 60px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 100%;
-  border: 2px solid var(--neutral-5);
-  background: var(--neutral-8);
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    border: 2px solid var(--neutral-5);
+    background: var(--neutral-8);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
 }
 
 .ToggleMediaIcon {
-  color: var(--neutral-2);
-  width: 40px;
-  height: 40px;
+    color: var(--neutral-2);
+    width: 40px;
+    height: 40px;
 }
 
 .Off {
-  background: var(--red-3);
-  border-color: rgb(0 0 0 / 40%);
+    background: var(--red-3);
+    border-color: rgb(0 0 0 / 40%);
 
-  .ToggleMediaIcon {
-    color: var(--red-1);
-  }
+    .ToggleMediaIcon {
+        color: var(--red-1);
+    }
 }

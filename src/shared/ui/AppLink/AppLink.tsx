@@ -6,31 +6,33 @@ import AppIcon from '@/shared/ui/AppIcon/AppIcon'
 import { AppRoutes } from '@/shared/config/routeConfig/routeConfig'
 
 interface AppLinkProps extends NavLinkProps {
-  className?: string
-  route: AppRoutes
+    className?: string
+    route: AppRoutes
 }
 
 const AppLink: FC<AppLinkProps> = (props) => {
-	const { to, className, route, children, ...args } = props
+    const { to, className, route, children, ...args } = props
 
-	const PathIcon = {
-		[AppRoutes.MAIN]: 'home',
-		[AppRoutes.CREATESESSION]: 'add',
-		[AppRoutes.JOIN]: 'camera',
-		[AppRoutes.ABOUT]: 'about'
-	} as const
+    const PathIcon = {
+        [AppRoutes.MAIN]: 'home',
+        [AppRoutes.CREATESESSION]: 'add',
+        [AppRoutes.JOIN]: 'camera',
+        [AppRoutes.ABOUT]: 'about'
+    } as const
 
-	return (
-		<NavLink
-			to={to}
-			className={({ isActive }) =>
-				classNames(cls.AppLink, { [cls.linkActive]: isActive }, [className])
-			}
-			{...args}
-		>
-			<AppIcon className={cls.AppLinkIcon} name={PathIcon[route]}/>
-		</NavLink>
-	)
+    return (
+        <NavLink
+            to={to}
+            className={({ isActive }) =>
+                classNames(cls.AppLink, { [cls.linkActive]: isActive }, [
+                    className
+                ])
+            }
+            {...args}
+        >
+            <AppIcon className={cls.AppLinkIcon} name={PathIcon[route]} />
+        </NavLink>
+    )
 }
 
 export default AppLink

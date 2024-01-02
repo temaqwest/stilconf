@@ -1,5 +1,3 @@
 import NavigationBar from './ui/NavigationBar'
 
-export {
-	NavigationBar
-}
+export { NavigationBar }

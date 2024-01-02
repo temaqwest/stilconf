@@ -8,8 +8,10 @@ interface RecentCardProps {
 
 const RecentCard = ({ className, ...other }: RecentCardProps) => {
     return (
-        <div {...other} className={classNames(cls?.RecentCard, {}, [className])}>
-        </div>
+        <div
+            {...other}
+            className={classNames(cls?.RecentCard, {}, [className])}
+        ></div>
     )
 }
 

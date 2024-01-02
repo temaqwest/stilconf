@@ -16,16 +16,18 @@ const RecentList = ({ className }: RecentListProps) => {
         <div className={classNames(cls?.RecentList, {}, [className])}>
             <div className={cls.Header}>
                 <h2>
-                    <AppIcon name="time"/> &nbsp;
+                    <AppIcon name='time' /> &nbsp;
                     {t('mainRecentTitle')}
                 </h2>
             </div>
             <div className={cls.RecentListContainer}>
-                {
-                    [...new Array(20)].map((value, index, array) => (
-                        <RecentCard key={index} className={cls.Card} data-key={index}/>
-                    ))
-                }
+                {[...new Array(20)].map((value, index, array) => (
+                    <RecentCard
+                        key={index}
+                        className={cls.Card}
+                        data-key={index}
+                    />
+                ))}
             </div>
         </div>
     )

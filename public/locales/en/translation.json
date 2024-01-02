@@ -1,18 +1,17 @@
 {
-  "createCardTitle": "New meeting",
-  "createCardSubtitle": "Start new meeting",
-  "joinCardTitle": "Join meeting",
-  "joinCardSubtitle": "Via invitation link",
-  "recentCardTitle": "Recent",
-  "recentCardSubtitle": "Check out your previous meetings",
-  "camera": "Camera",
-  "microphone": "Microphone",
-  "off": "Off ❌",
-  "on": "On ✅",
-  "readyToJoin": "Ready to join?",
-  "join": "Join",
-  "havingTroubles": "Are you having trouble accessing your camera or microphone? Solve them yourself, we believe in you!",
-  "mainRecentTitle": "Your recent conferences",
-  "NotAllowedError": "Not allowed to use internal devices"
+    "createCardTitle": "New meeting",
+    "createCardSubtitle": "Start new meeting",
+    "joinCardTitle": "Join meeting",
+    "joinCardSubtitle": "Via invitation link",
+    "recentCardTitle": "Recent",
+    "recentCardSubtitle": "Check out your previous meetings",
+    "camera": "Camera",
+    "microphone": "Microphone",
+    "off": "Off ❌",
+    "on": "On ✅",
+    "readyToJoin": "Ready to join?",
+    "join": "Join",
+    "havingTroubles": "Are you having trouble accessing your camera or microphone? Solve them yourself, we believe in you!",
+    "mainRecentTitle": "Your recent conferences",
+    "NotAllowedError": "Not allowed to use internal devices"
 }
-

@@ -24,7 +24,6 @@ const PreviewStream: FC<PreviewStreamProps> = ({
 
     const videoObject = createRef<HTMLVideoElement>()
 
-
     function handleAudio() {
         setAudio(!audio)
     }
@@ -38,24 +37,25 @@ const PreviewStream: FC<PreviewStreamProps> = ({
         abortStream(streamData)
     }
 
-
     useEffect(() => {
-        getStream(audio, camera).then((mediaStreamResponse) => {
-            streamData && clearTracks()
+        getStream(audio, camera)
+            .then((mediaStreamResponse) => {
+                streamData && clearTracks()
 
-            if (mediaStreamResponse && videoObject.current) {
-                videoObject.current.srcObject = mediaStreamResponse
-                streamData = mediaStreamResponse
-                setIsDevicesAllowedToUse(true)
-            }
-        }).catch((error) => {
-            console.log({ error })
-            if (error.name === 'NotAllowedError') {
-                setIsDevicesAllowedToUse(false)
-                setAudio(false)
-                setCamera(false)
-            }
-        })
+                if (mediaStreamResponse && videoObject.current) {
+                    videoObject.current.srcObject = mediaStreamResponse
+                    streamData = mediaStreamResponse
+                    setIsDevicesAllowedToUse(true)
+                }
+            })
+            .catch((error) => {
+                console.log({ error })
+                if (error.name === 'NotAllowedError') {
+                    setIsDevicesAllowedToUse(false)
+                    setAudio(false)
+                    setCamera(false)
+                }
+            })
     }, [audio, camera])
 
     useEffect(() => {
@@ -74,13 +74,19 @@ const PreviewStream: FC<PreviewStreamProps> = ({
                     className={cls.PreviewStreamVideo}
                 />
                 <div className={cls.VideoOverlay}>
-                    {!isDevicesAllowedToUse ?
-                        (<div className={cls.NotAllowedError}>
+                    {!isDevicesAllowedToUse ? (
+                        <div className={cls.NotAllowedError}>
                             {t('NotAllowedError')} 🤡
-                        </div>) : (<></>)
-                    }
+                        </div>
+                    ) : (
+                        <></>
+                    )}
                 </div>
-                <div className={classNames(cls.VideoActions, { [cls.VideoActionsHidden]: !isDevicesAllowedToUse })}>
+                <div
+                    className={classNames(cls.VideoActions, {
+                        [cls.VideoActionsHidden]: !isDevicesAllowedToUse
+                    })}
+                >
                     <ToggleMedia
                         type={'camera'}
                         active={camera}
