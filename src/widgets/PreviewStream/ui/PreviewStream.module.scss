@@ -17,6 +17,8 @@
 .PreviewStreamVideo {
   width: 740px;
   height: 416px;
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
 }
 
 .VideoOverlay {
@@ -35,6 +37,8 @@
     height: 50%;
     transition: opacity 0.2s ease;
     opacity: 0;
+    user-select: none;
+    pointer-events: none;
   }
 
   &::before {
@@ -46,6 +50,15 @@
     background: linear-gradient(180deg, rgb(0 0 0 / 0%) 20%, rgb(0 0 1 / 50%) 100%);
     bottom: 0;
   }
+}
+
+.NotAllowedError {
+  position: absolute;
+  display: block;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: var(--fz-l);
 }
 
 .PreviewStream:hover {
@@ -65,6 +78,10 @@
   justify-content: center;
   gap: 20px;
   z-index: 1;
+}
+
+.VideoActionsHidden {
+  display: none;
 }
 
 .MediaInfo {

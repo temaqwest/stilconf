@@ -6,11 +6,11 @@ interface RecentCardProps {
     className?: string
 }
 
-const RecentCard = ({ className }: RecentCardProps) => {
-	return (
-		<div className={classNames(cls?.RecentCard, {}, [className])}>
-		</div>
-	)
+const RecentCard = ({ className, ...other }: RecentCardProps) => {
+    return (
+        <div {...other} className={classNames(cls?.RecentCard, {}, [className])}>
+        </div>
+    )
 }
 
 export default RecentCard

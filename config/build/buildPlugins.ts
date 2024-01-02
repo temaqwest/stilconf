@@ -11,7 +11,8 @@ export default function buildPlugins ({ paths, isDev }: BuildOptions): webpack.W
 		new HtmlWebpackPlugin({
 			inject: true,
 			title: 'Application title',
-			template: paths.html
+			template: paths.html,
+			favicon: path.resolve(paths.src, '../', 'public', 'favicon.ico')
 		}),
 		new progressPlugin((percentage: number, message: string, ...args: unknown[]) => {
 			const normalizedPercentage = Math.trunc(percentage * 100)

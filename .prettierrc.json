@@ -6,5 +6,6 @@
   "useTabs": false,
   "semi": false,
   "trailingComma": "none",
+  "tabWidth": 4,
   "endOfLine": "auto"
 }
