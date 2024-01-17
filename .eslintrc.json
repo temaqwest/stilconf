@@ -8,7 +8,6 @@
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
         "plugin:react/recommended",
-        "plugin:i18next/recommended",
         "prettier"
     ],
     "parser": "@typescript-eslint/parser",
@@ -38,16 +37,14 @@
         ],
         "react/react-in-jsx-scope": "off",
         "react/jsx-uses-react": "off",
-        "i18next/no-literal-string": [
-            "error",
-            {
-                "markupOnly": true
-            }
-        ],
         "max-len": [
             "error",
             {
-                "ignoreComments": true
+                "ignoreComments": true,
+                "ignoreStrings": true,
+                "ignoreUrls": true,
+                "ignoreTrailingComments": true,
+                "ignoreTemplateLiterals": true
             }
         ]
     }

@@ -11,7 +11,6 @@ export default function buildDevServer({
         port,
         open: false, // Открытие вебстраницы при запуске dev-server
         historyApiFallback: true,
-        hot: true,
         client: {
             overlay: true
         }

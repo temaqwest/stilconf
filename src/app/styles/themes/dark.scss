@@ -1,9 +1,10 @@
 .app.dark {
-	--background: var(--deep-dark);
-	--navbar-background: var(--medium-dark);
-	--text: var(--neutral-8);
-	--secondary-text: var(--neutral-3);
-	--accent: var(--blue-3);
-	--input-background: var(--neutral-3);
-	--input-text: var(--neutral-8);
+    --background: var(--deep-dark);
+    --inverted-background: var(--regular-blue);
+    --navbar-background: var(--medium-dark);
+    --text: var(--neutral-8);
+    --secondary-text: var(--neutral-3);
+    --accent: var(--blue-3);
+    --input-background: var(--neutral-3);
+    --input-text: var(--neutral-8);
 }

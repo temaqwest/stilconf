@@ -1,21 +1,32 @@
 import { type RouteProps } from 'react-router-dom'
-import { MainPage } from '@/pages/MainPage'
-import { AboutPage } from '@/pages/AboutPage'
-import { JoinPage } from '@/pages/JoinPage'
+import { JoinSessionPage } from '@/pages/JoinSessionPage'
+import { ConferencePage } from '@/pages/ConferencePage'
 import { CreateSessionPage } from '@/pages/CreateSessionPage'
+import { MainPage } from '@/pages/MainPage'
+import { NotFoundPage } from '@/pages/NotFoundPage'
 
 export enum AppRoutes {
     MAIN = 'main',
-    ABOUT = 'about',
     CREATESESSION = 'createsession',
-    JOIN = 'join'
+    NOTFOUND = 'notfound',
+    JOIN = 'join',
+    JOINDETAIL = 'joindetail',
+    CONFERENCE = 'conference'
 }
 
 export const RoutePaths: Record<AppRoutes, string> = {
     [AppRoutes.MAIN]: '/',
     [AppRoutes.CREATESESSION]: '/create',
+    [AppRoutes.CONFERENCE]: '/conference/:roomId',
     [AppRoutes.JOIN]: '/join',
-    [AppRoutes.ABOUT]: '/about'
+    [AppRoutes.JOINDETAIL]: '/join/:roomId',
+    [AppRoutes.NOTFOUND]: '*'
+}
+
+export const NavigationBarLinks: Partial<Record<AppRoutes, string>> = {
+    [AppRoutes.MAIN]: '/',
+    [AppRoutes.CREATESESSION]: '/create',
+    [AppRoutes.JOIN]: '/join'
 }
 
 export const routeConfig: Record<AppRoutes, RouteProps> = {
@@ -29,10 +40,18 @@ export const routeConfig: Record<AppRoutes, RouteProps> = {
     },
     [AppRoutes.JOIN]: {
         path: RoutePaths.join,
-        element: <JoinPage />
+        element: <JoinSessionPage />
     },
-    [AppRoutes.ABOUT]: {
-        path: RoutePaths.about,
-        element: <AboutPage />
+    [AppRoutes.JOINDETAIL]: {
+        path: RoutePaths.joindetail,
+        element: <JoinSessionPage />
+    },
+    [AppRoutes.CONFERENCE]: {
+        path: RoutePaths.conference,
+        element: <ConferencePage />
+    },
+    [AppRoutes.NOTFOUND]: {
+        path: RoutePaths.notfound,
+        element: <NotFoundPage />
     }
 }

@@ -1,0 +1,27 @@
+.AppAvatar {
+    box-sizing: border-box;
+    align-items: center;
+    border-radius: 50%;
+    display: inline-flex;
+    justify-content: center;
+    line-height: normal;
+    text-align: center;
+    vertical-align: middle;
+    overflow: hidden;
+    background-color: var(--deep-gray);
+    color: var(--text);
+    width: 3rem;
+    height: 3rem;
+
+    img {
+        border-radius: inherit;
+        display: inline-flex;
+        height: inherit;
+        width: inherit;
+        object-fit: cover;
+    }
+
+    span {
+        text-transform: uppercase;
+    }
+}

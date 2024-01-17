@@ -1,33 +1,33 @@
-@import "themes/dark";
-@import "themes/light";
-@import "variables/global";
-@import "normalize.css";
-@import "fonts/fonts";
+@import 'themes/dark';
+@import 'themes/light';
+@import 'variables/global';
+@import 'normalize.css';
+@import 'fonts/fonts';
 
 *,
 *::before,
 *::after {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 html {
-	background: var(--deep-dark);
+    background: var(--deep-dark);
 }
 
 .app {
-	overflow: hidden;
-	font-family: Quicksand, Inter, sans-serif;
-	height: 100vh;
-	width: 100%;
-	background: var(--background);
-	color: var(--text);
-	display: flex;
-	flex-flow: row nowrap;
+    overflow: hidden;
+    font-family: Quicksand, Inter, sans-serif;
+    height: 100vh;
+    width: 100%;
+    background: var(--background);
+    color: var(--text);
+    display: flex;
+    flex-flow: row nowrap;
 }
 
 .main {
-	height: inherit;
-	width: inherit;
+    height: inherit;
+    width: inherit;
 }

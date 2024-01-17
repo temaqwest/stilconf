@@ -1,0 +1,30 @@
+.AppSideBar {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    height: 97%;
+    transform: translateX(100%);
+    border-top-left-radius: var(--b-rad-l);
+    background-color: var(--navbar-background);
+    padding: 1.25rem;
+    color: var(--text);
+    z-index: 1;
+    width: 25rem;
+    transition: transform 0.2s ease-in-out;
+}
+
+.Show {
+    transform: translateX(0%);
+}
+
+.Header {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 2.5rem;
+}
+
+.Exit {
+    color: var(--text);
+}

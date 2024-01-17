@@ -11,7 +11,8 @@ interface AppButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 export enum ButtonTheme {
     CLEAR = 'clear',
     PRIMARY = 'primary',
-    SECONDARY = 'secondary'
+    SECONDARY = 'secondary',
+    FAB = 'fab'
 }
 
 export enum ButtonSize {
@@ -21,14 +22,20 @@ export enum ButtonSize {
 }
 
 const AppButton: FC<AppButtonProps> = (props: AppButtonProps) => {
-    const { className, children, theme, size, ...args } = props
+    const {
+        className,
+        children,
+        theme = ButtonTheme.PRIMARY,
+        size = ButtonSize.MEDIUM,
+        ...args
+    } = props
 
     return (
         <button
             className={classNames(cls?.AppButton, {}, [
                 className,
                 cls[theme],
-                cls[size ?? ButtonSize.MEDIUM]
+                cls[size]
             ])}
             {...args}
         >

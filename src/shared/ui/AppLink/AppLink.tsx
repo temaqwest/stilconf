@@ -12,12 +12,11 @@ interface AppLinkProps extends NavLinkProps {
 const AppLink: FC<AppLinkProps> = (props) => {
     const { to, className, route, children, ...args } = props
 
-    const PathIcon = {
+    const PathIcon: Partial<Record<AppRoutes, string>> = {
         [AppRoutes.MAIN]: 'home',
         [AppRoutes.CREATESESSION]: 'add',
-        [AppRoutes.JOIN]: 'camera',
-        [AppRoutes.ABOUT]: 'about'
-    } as const
+        [AppRoutes.JOIN]: 'camera'
+    }
 
     return (
         <NavLink

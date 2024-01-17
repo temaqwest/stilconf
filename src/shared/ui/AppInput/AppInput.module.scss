@@ -1,36 +1,36 @@
 .AppInput {
-	padding: 8px 16px;
-	background: var(--input-background);
-	color: var(--input-text);
-	font-size: var(--fz-s);
-	border-radius: 100px;
-	transition: all 0.2s ease-in-out;
-	border: 1px solid rgb(255 255 255 / 0%);
+    padding: 8px 16px;
+    background: var(--input-background);
+    color: var(--input-text);
+    font-size: var(--fz-s);
+    border-radius: 100px;
+    transition: all 0.2s ease-in-out;
+    border: 1px solid rgb(255 255 255 / 0%);
 
-	&::placeholder {
-		color: var(--neutral-5);
-	}
+    &::placeholder {
+        color: var(--neutral-5);
+    }
 
-	&:focus {
-		outline: 0.1rem solid var(--blue);
-	}
+    &:focus {
+        outline: 0.1rem solid var(--blue);
+    }
 
-	&:hover:not(:focus) {
-		border-color: rgb(255 255 255 / 20%);
-	}
+    &:hover:not(:focus) {
+        border-color: rgb(255 255 255 / 20%);
+    }
 }
 
 .large {
-	font-size: var(--fz-l);
-	padding: 16px 30px;
+    font-size: var(--fz-l);
+    padding: 16px 30px;
 }
 
 .medium {
-	font-size: var(--fz-m);
-	padding: 12px 24px;
+    font-size: var(--fz-m);
+    padding: 12px 24px;
 }
 
 .small {
-	font-size: var(--fz-s);
-	padding: 8px 16px;
+    font-size: var(--fz-s);
+    padding: 8px 16px;
 }

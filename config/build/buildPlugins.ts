@@ -15,6 +15,7 @@ export default function buildPlugins({
             inject: true,
             title: 'Application title',
             template: paths.html,
+            publicPath: '/',
             favicon: path.resolve(paths.src, '../', 'public', 'favicon.ico')
         }),
         new progressPlugin(

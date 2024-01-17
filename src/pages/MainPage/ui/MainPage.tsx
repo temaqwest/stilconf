@@ -3,7 +3,7 @@ import cls from './MainPage.module.scss'
 import ActionCard from '@/entities/ActionCard/ActionCard'
 import DateTimeCard from '@/entities/DateTimeCard/DateTimeCard'
 import { useTranslation } from 'react-i18next'
-import { RecentList } from '@/widgets/RecentList'
+import { RoomsList } from '@/widgets/RoomsList'
 
 function MainPage() {
     const { t } = useTranslation()
@@ -35,7 +35,7 @@ function MainPage() {
                 </div>
                 <div className={cls.InfoColumn}>
                     <DateTimeCard />
-                    <RecentList className={cls.Recent} />
+                    <RoomsList className={cls.Recent} />
                 </div>
             </div>
         </div>
