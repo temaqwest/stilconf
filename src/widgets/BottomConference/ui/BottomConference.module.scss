@@ -1,0 +1,26 @@
+.BottomConference {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    gap: 1rem;
+}
+
+.Divider {
+    height: 100%;
+    width: 1px;
+    background-color: var(--deep-gray);
+}
+
+.TurnedOff,
+.EndCall {
+    background-color: var(--red-2);
+}
+
+.Button {
+    background-color: var(--deep-gray);
+}
+
+.Icon {
+    pointer-events: none;
+}

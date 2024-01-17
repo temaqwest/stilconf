@@ -1,9 +1,9 @@
 import React, { createRef, FC, useEffect, useState } from 'react'
 import { classNames } from '@/shared/lib/classNames/classNames'
 import cls from './PreviewStream.module.scss'
-import { ToggleMedia } from '@/features/ToggleAudio'
 import { useTranslation } from 'react-i18next'
-import { useUserStream } from '@/widgets/PreviewStream/lib/useUserStream'
+import { useUserStream } from '.././lib/useUserStream'
+import { ToggleMedia } from '@/features/ToggleMedia'
 
 interface PreviewStreamProps {
     className?: string
@@ -31,19 +31,25 @@ const PreviewStream: FC<PreviewStreamProps> = ({
     }
 
     function clearTracks() {
-        console.log(streamData, isDevicesAllowedToUse)
+        console.log('CLEAR: ', streamData, isDevicesAllowedToUse)
         abortStream(streamData)
     }
 
     useEffect(() => {
+        console.log('GETTING STREAMS')
         getStream(audio, camera)
             .then((mediaStreamResponse) => {
                 streamData && clearTracks()
-
+                console.log('do', {
+                    mediaStreamResponse,
+                    isDevicesAllowedToUse,
+                    videoObject
+                })
                 if (mediaStreamResponse && videoObject.current) {
                     videoObject.current.srcObject = mediaStreamResponse
                     streamData = mediaStreamResponse
                     setIsDevicesAllowedToUse(true)
+                    console.log({ streamData, isDevicesAllowedToUse })
                 }
             })
             .catch((error) => {

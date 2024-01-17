@@ -17,10 +17,10 @@ export function useUserStream() {
 
     async function getStream(audio: boolean, video: boolean) {
         if (audio || video) {
-            console.log(navigator)
             return navigator.mediaDevices?.getUserMedia({ audio, video })
         } else if (!navigator?.mediaDevices) {
             const error = new Error('NotAllowedError')
+            error.message = 'CustomError'
             error.name = 'NotAllowedError'
 
             throw error
@@ -37,9 +37,21 @@ export function useUserStream() {
         })
     }
 
+    function toggleAudio(stream: MediaStream, flag: boolean) {
+        console.log({ stream, flag })
+        stream.getAudioTracks()[0].enabled = flag
+    }
+
+    function toggleVideo(stream: MediaStream, flag: boolean) {
+        console.log({ stream, flag })
+        stream.getVideoTracks()[0].enabled = flag
+    }
+
     return {
         getStream,
         abortStream,
-        startCapture
+        startCapture,
+        toggleAudio,
+        toggleVideo
     }
 }

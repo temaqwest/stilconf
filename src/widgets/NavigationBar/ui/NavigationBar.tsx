@@ -3,7 +3,7 @@ import { classNames } from '@/shared/lib/classNames/classNames'
 import cls from './NavigationBar.module.scss'
 import {
     type AppRoutes,
-    RoutePaths
+    NavigationBarLinks
 } from '@/shared/config/routeConfig/routeConfig'
 import AppLink from '@/shared/ui/AppLink/AppLink'
 import { ThemeSwitcher } from '@/features/ThemeSwitcher'
@@ -20,7 +20,7 @@ const NavigationBar = ({ className }: NavbarProps) => {
                 <ThemeSwitcher />
                 <LanguageSwitcher />
             </div>
-            {Object.entries(RoutePaths).map(([key, path]) => (
+            {Object.entries(NavigationBarLinks).map(([key, path]) => (
                 <AppLink
                     key={path}
                     to={path}
