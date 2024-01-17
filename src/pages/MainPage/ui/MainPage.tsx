@@ -1,7 +1,7 @@
 import React from 'react'
 import cls from './MainPage.module.scss'
 import ActionCard from '@/entities/ActionCard/ActionCard'
-import DateTimeCard from '@/entities/DateTimeCard/DateTimeCard'
+import DateTimeCard from '@/widgets/DateTimeCard/DateTimeCard'
 import { useTranslation } from 'react-i18next'
 import { RoomsList } from '@/widgets/RoomsList'
 
