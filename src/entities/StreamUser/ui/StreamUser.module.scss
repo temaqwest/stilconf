@@ -1,0 +1,97 @@
+.StreamUser {
+    border-radius: 0.75rem;
+    overflow: hidden;
+    outline: 2px solid rgb(255 255 255 / 0%);
+    background: var(--medium-dark);
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.small {
+    width: 14rem;
+    height: 9rem;
+}
+
+.medium {
+    width: 21rem;
+    height: 12rem;
+}
+
+.large {
+    width: 30rem;
+    height: 18rem;
+}
+
+.StreamUserVideo {
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    object-fit: cover;
+}
+
+.StreamUserBottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0.5rem;
+}
+
+.Username {
+    border-radius: 1rem;
+    padding: 0.3rem 0.55rem;
+    background: rgb(0 0 0 / 35%);
+    backdrop-filter: blur(0.75rem);
+    color: var(--text);
+}
+
+.Microphone {
+    border-radius: 50%;
+    background: rgb(0 0 0 / 35%);
+    backdrop-filter: blur(0.75rem);
+    color: var(--text);
+    padding: 0.3rem;
+    width: 1.7rem;
+    height: 1.7rem;
+    transition: all 0.2s ease-in;
+}
+
+.MicrophoneSpeaking {
+    animation: 0.5s ease-in alternate both running infinite speaking;
+}
+
+.light {
+    .MicrophoneSpeaking {
+        background: var(--yellow);
+        color: var(--deep-dark);
+    }
+
+    &.Speaking {
+        outline-color: var(--yellow);
+        box-shadow: 0 0.3rem 2rem 0.5rem rgb(255 255 0 / 30%);
+    }
+}
+
+.dark {
+    .MicrophoneSpeaking {
+        background: var(--blue);
+    }
+
+    &.Speaking {
+        outline-color: var(--blue);
+        box-shadow: 0 0.3rem 2rem 0.5rem rgb(55 105 241 / 30%);
+    }
+}
+
+@keyframes speaking {
+    to {
+        transform: scale(1.1);
+    }
+}

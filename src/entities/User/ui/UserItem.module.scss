@@ -1,0 +1,17 @@
+.UserItem {
+    display: block;
+    width: 100%;
+    padding: 0.5rem;
+    font-size: var(--fz-l);
+    color: var(--text);
+}
+
+.UserName {
+    margin-left: 1rem;
+}
+
+.UserContainer {
+    overflow: auto;
+    height: calc(100% - 3rem);
+    padding-left: 0.75rem;
+}

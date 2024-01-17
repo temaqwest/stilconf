@@ -1,0 +1,48 @@
+.Chat {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 1rem;
+    height: calc(100% - 4.2rem);
+}
+
+.ChatContent {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 0.75rem;
+    overflow: auto;
+    padding-left: 0.75rem;
+    flex-grow: 1;
+}
+
+.ChatMessage {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+    gap: 0.225rem;
+    width: fit-content;
+}
+
+.ChatAuthor {
+    color: var(--text);
+    font-weight: 500;
+    font-size: var(fz-xs);
+}
+
+.ChatMessageContent {
+    border-radius: 1rem;
+    background-color: rgb(255 255 255 / 20%);
+    color: var(--text);
+    padding: 0.75rem;
+    font-weight: 200;
+    min-width: 60%;
+    word-break: break-word;
+}
+
+.DateTime {
+    margin-top: 0.15rem;
+    opacity: 0.4;
+    font-size: var(--fz-xxs);
+    text-align: right;
+    display: block;
+    width: 100%;
+}
