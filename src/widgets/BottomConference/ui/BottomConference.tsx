@@ -8,18 +8,23 @@ import AppButton, {
 } from '@/shared/ui/AppButton/AppButton'
 import { useTranslation } from 'react-i18next'
 import AppSideBar from '@/shared/ui/AppSideBar/AppSideBar'
-import { Chat } from '@/entities/Chat'
+import { Chat, ChatMessagePayload } from '@/entities/Chat'
 import ChatInput from '@/features/ChatInput/ui/ChatInput'
 import { useTheme } from '@/app/providers/ThemeProvider'
 import { User, UserContainer } from '@/entities/User'
-import { UserSpeed } from '@/entities/User/api/types'
+import { UserSpeed } from '@/entities/User/model/types'
+import { useParams } from 'react-router-dom'
+import { SocketEvent, useSocket } from '@/shared/api'
 
 interface BottomConferenceProps {
+    users: string[]
+    chatData: Array<ChatMessagePayload>
     className?: string
     localAudioState: boolean
     localVideoState: boolean
     onAudioToggle: () => void
     onVideoToggle: () => void
+    onLeaveRoom: () => void
 }
 
 const usersMockData: User[] = [
@@ -130,61 +135,39 @@ const usersMockData: User[] = [
     }
 ]
 
-const mockData = {
-    chatId: 'string',
-    content: [
-        {
-            userId: 'string',
-            username: 'Artem',
-            content:
-                'Veniam enim inceptos, augue, iure vehicula nascetur gravida at exercitation urna ullamcorper accusantium quo itaque tincidunt, aliquet! Vero repudiandae nostrum commodi, fermentum veritatis quisquam habitasse facere voluptates repudiandae nullam ridiculus natus per platea! Taciti maecenas hymenaeos! Nonummy adipisci quod cumque sapien architecto sociis posuere mollitia mattis? Curabitur fugiat mi incidunt egestas occaecati dolorum.',
-            date: '2023-12-21T22:55:55.079Z'
-        },
-        {
-            userId: 'string',
-            username: 'Artem',
-            content:
-                'Proident iaculis doloremque dolorum, montes natoque enim integer facilis aliquip. Aliquam magni. Nulla, quae, quia consectetur mollitia senectus, nullam turpis! Do sem, voluptas nihil, ex. Eligendi ullam tristique. Aperiam minus, ullam sunt eos nullam suspendisse amet aspernatur neque. Consequuntur eleifend, vel perferendis sit integer! Sodales ex aliquid venenatis nostrum risus labore.',
-            date: '2023-12-21T22:57:55.079Z'
-        },
-        {
-            userId: 'string',
-            username: 'Artem',
-            content:
-                'Blandit risus laborum voluptates voluptatum hendrerit reiciendis, aliqua a elementum platea libero aute, ullamcorper eaque occaecati molestie fuga! Nulla posuere justo lacus, fermentum placeat quidem sociosqu aliquid, tempus quibusdam hac! Tincidunt voluptas quibusdam quos aliquid exercitationem. Porro explicabo proin, aliquet laboriosam quas, proident labore. Ullamco, donec ut hic orci. Reprehenderit.',
-            date: '2023-12-21T22:59:58.079Z'
-        }
-    ],
-    createdAt: '2023-12-21T21:32:05.079Z',
-    registeredUsers: 'asdsad'
-}
-
 const BottomConference: FC<BottomConferenceProps> = ({
     className,
     children,
     onVideoToggle,
     onAudioToggle,
+    onLeaveRoom,
+    chatData,
+    users,
     localAudioState,
     localVideoState
 }) => {
     const { theme } = useTheme()
     const { t } = useTranslation()
+    const socket = useSocket()
     const [chatSidebar, setChatSidebar] = useState(false)
     const [usersSidebar, setUsersSidebar] = useState(false)
     const [messageValue, setMessageValue] = useState('')
+    const { roomId } = useParams()
 
-    function sendMessage(value: string) {
+    async function sendMessage(value: string) {
         console.log({ value })
         setMessageValue(value)
-        mockData.content = [
-            ...mockData.content,
-            {
-                userId: 'string',
-                username: 'You',
+
+        socket.sendMessage({
+            event: SocketEvent.BroadcastMessage,
+            data: {
+                userId: localStorage.getItem('userId'),
+                username: localStorage.getItem('user'),
                 content: value,
-                date: new Date().toISOString()
+                date: new Date().toISOString(),
+                chatId: roomId
             }
-        ]
+        })
     }
 
     return (
@@ -211,15 +194,15 @@ const BottomConference: FC<BottomConferenceProps> = ({
             >
                 <AppIcon name={'camera'} className={cls.Icon} />
             </AppButton>
-            <div className={cls.Divider} />
-            <AppButton
-                title={t('shareDisplay')}
-                className={cls.Button}
-                size={ButtonSize.LARGE}
-                theme={ButtonTheme.FAB}
-            >
-                <AppIcon name={'shareDisplay'} className={cls.Icon} />
-            </AppButton>
+            {/*<div className={cls.Divider} />*/}
+            {/*<AppButton*/}
+            {/*    title={t('shareDisplay')}*/}
+            {/*    className={cls.Button}*/}
+            {/*    size={ButtonSize.LARGE}*/}
+            {/*    theme={ButtonTheme.FAB}*/}
+            {/*>*/}
+            {/*    <AppIcon name={'shareDisplay'} className={cls.Icon} />*/}
+            {/*</AppButton>*/}
             <div className={cls.Divider}></div>
             <AppButton
                 title={t('openChat')}
@@ -245,6 +228,7 @@ const BottomConference: FC<BottomConferenceProps> = ({
                 theme={ButtonTheme.SECONDARY}
                 className={cls.EndCall}
                 size={ButtonSize.LARGE}
+                onClick={onLeaveRoom}
             >
                 {t('endCall')}
             </AppButton>
@@ -260,7 +244,7 @@ const BottomConference: FC<BottomConferenceProps> = ({
                 }
             >
                 <Chat
-                    chatData={mockData}
+                    chatData={chatData}
                     actionSlot={
                         <ChatInput
                             theme={theme}
@@ -281,7 +265,7 @@ const BottomConference: FC<BottomConferenceProps> = ({
                     )()
                 }
             >
-                <UserContainer users={usersMockData} />
+                <UserContainer users={users} />
             </AppSideBar>
         </div>
     )

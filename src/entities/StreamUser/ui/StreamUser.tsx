@@ -44,6 +44,7 @@ const StreamUser = ({
                 ref={streamRef}
                 className={cls.StreamUserVideo}
                 autoPlay
+                playsInline
                 muted
             />
             <div className={cls.StreamUserBottom}>

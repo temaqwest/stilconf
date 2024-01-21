@@ -5,6 +5,13 @@ export type ChatExistsResponse = {
     }
 }
 
+export type CreateChatResponse = {
+    status: string
+    data: {
+        chatId: string
+    }
+}
+
 export type ChatData = {
     chatId: string
     content?: Array<ChatMessagePayload>

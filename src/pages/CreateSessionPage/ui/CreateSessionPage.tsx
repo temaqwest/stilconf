@@ -8,17 +8,22 @@ import { useTranslation } from 'react-i18next'
 import AppInput, { InputSize } from '@/shared/ui/AppInput/AppInput'
 import { classNames } from '@/shared/lib/classNames/classNames'
 import ReportAnalysis from '@/shared/assets/reportAnalysis.svg'
-import { randomString } from '@/shared/lib/randomString/randomString'
 import AppIcon from '@/shared/ui/AppIcon/AppIcon'
 import { useNavigate } from 'react-router-dom'
+import { chatApi } from '@/entities/Chat'
 
 function CreateSessionPage() {
     const { t } = useTranslation()
     const [link, setLink] = useState('')
     const navigate = useNavigate()
 
-    function createLink() {
-        setLink(randomString())
+    async function createLink() {
+        const response = await chatApi.createChat()
+        setLink(response.data.chatId ?? '')
+    }
+
+    function joinRoom() {
+        navigate(`/join/${link}`)
     }
 
     return (
@@ -51,9 +56,7 @@ function CreateSessionPage() {
                             theme={ButtonTheme.FAB}
                             size={ButtonSize.LARGE}
                             className={cls.JoinButton}
-                            onClick={() => {
-                                navigate(`/join/${link}`)
-                            }}
+                            onClick={joinRoom}
                         >
                             <AppIcon
                                 name={'join'}

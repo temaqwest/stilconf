@@ -5,6 +5,15 @@ import AppButton, { ButtonTheme } from '@/shared/ui/AppButton/AppButton'
 import AppInput, { InputSize } from '@/shared/ui/AppInput/AppInput'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
+import { chatApi } from '@/entities/Chat'
+
+const ErrorMessage = ({ exists }: { exists: boolean }) => {
+    if (!exists) {
+        return <span className={cls.NotExists}>Комната не существует</span>
+    }
+
+    return <></>
+}
 
 function JoinSessionPage() {
     const navigate = useNavigate()
@@ -15,6 +24,22 @@ function JoinSessionPage() {
         isRoomIdDefined ? roomId : ''
     )
     const [roomInputVisible] = useState(!isRoomIdDefined)
+    const [isRoomExists, setIsRoomExists] = useState(true)
+
+    async function isChatExists() {
+        const response = await chatApi.isChatExists(roomInputValue)
+        return response.data.chatRegistered
+    }
+
+    async function joinRoom() {
+        const exists = await isChatExists()
+
+        if (exists) {
+            navigate(`/conference/${roomInputValue}`)
+        } else {
+            setIsRoomExists(false)
+        }
+    }
 
     return (
         <div className={cls.JoinSessionPage}>
@@ -36,13 +61,11 @@ function JoinSessionPage() {
                 <AppButton
                     theme={ButtonTheme.PRIMARY}
                     disabled={!roomId && !roomInputValue}
-                    onClick={navigate.bind(
-                        null,
-                        `/conference/${roomInputValue}`
-                    )}
+                    onClick={joinRoom}
                 >
                     {t('join')}
                 </AppButton>
+                <ErrorMessage exists={isRoomExists} />
             </div>
         </div>
     )

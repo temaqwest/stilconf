@@ -1,3 +1,5 @@
-import { axiosInstance } from './networkInstance'
+import { axiosInstance } from './axios/networkInstance'
+import { SocketEvent, SocketMessage } from './sockets/actions.types'
+import { useSocket } from './sockets/sockets'
 
-export { axiosInstance }
+export { axiosInstance, useSocket, SocketEvent, SocketMessage }

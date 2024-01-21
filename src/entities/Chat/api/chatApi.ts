@@ -1,6 +1,7 @@
 import { axiosInstance } from '@/shared/api'
 import {
     ChatData,
+    CreateChatResponse,
     ChatExistsResponse,
     ChatMessagePayload
 } from '@/entities/Chat/api/types'
@@ -8,11 +9,13 @@ import {
 const BASE = 'chats'
 
 export default {
-    createChat: (): Promise<string> => {
-        return axiosInstance.get(`${BASE}/create`)
+    createChat: (): Promise<CreateChatResponse> => {
+        return axiosInstance.get(`${BASE}/create`).then((data) => data.data)
     },
     isChatExists: (id: string): Promise<ChatExistsResponse> => {
-        return axiosInstance.get(`${BASE}/check/${id}`)
+        return axiosInstance
+            .get(`${BASE}/check/${id}`)
+            .then((data) => data.data)
     },
     getChatData: (id: string): Promise<ChatData> => {
         return axiosInstance.get(`${BASE}/${id}`)
@@ -21,11 +24,16 @@ export default {
         id: string,
         payload: ChatMessagePayload
     ): Promise<void> => {
-        return axiosInstance.post(`${BASE}/${id}`, { payload })
+        return axiosInstance.post(`${BASE}/${id}`, payload)
     },
-    registerUserInChat: (chatId: string, userId: string): Promise<void> => {
+    registerUserInChat: (
+        chatId: string,
+        userId: string,
+        username: string
+    ): Promise<void> => {
         return axiosInstance.post(`${BASE}/register/${chatId}`, {
-            payload: { userId }
+            userId,
+            username
         })
     }
 }

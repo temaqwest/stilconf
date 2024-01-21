@@ -1,12 +1,31 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import cls from './MainPage.module.scss'
 import ActionCard from '@/entities/ActionCard/ActionCard'
 import DateTimeCard from '@/widgets/DateTimeCard/DateTimeCard'
 import { useTranslation } from 'react-i18next'
 import { RoomsList } from '@/widgets/RoomsList'
+import { SocketEvent, useSocket } from '@/shared/api'
+import { RoomType } from '@/entities/Room'
 
 function MainPage() {
     const { t } = useTranslation()
+    const socket = useSocket()
+    const [rooms, setRooms] = useState<RoomType[]>([])
+
+    useEffect(() => {
+        socket.sendMessage({
+            event: SocketEvent.GetRooms
+        })
+
+        socket.onMessage(SocketEvent.GetRooms, (message) => {
+            console.log(message)
+            setRooms(message.data)
+        })
+
+        // return () => {
+        //     socket.instance.close()
+        // }
+    }, [])
 
     return (
         <div className={cls.MainPage}>
@@ -35,7 +54,7 @@ function MainPage() {
                 </div>
                 <div className={cls.InfoColumn}>
                     <DateTimeCard />
-                    <RoomsList className={cls.Recent} />
+                    <RoomsList rooms={rooms} className={cls.Recent} />
                 </div>
             </div>
         </div>

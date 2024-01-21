@@ -4,13 +4,16 @@ import cls from './RoomsList.module.scss'
 import RoomCard from '@/entities/Room/ui/RoomCard'
 import { useTranslation } from 'react-i18next'
 import AppIcon from '@/shared/ui/AppIcon/AppIcon'
-import { randomString } from '@/shared/lib/randomString/randomString'
+import { RoomType } from '@/entities/Room'
+
+export type Room = {}
 
 interface RoomsListProps {
     className?: string
+    rooms: RoomType[]
 }
 
-const RoomsList = ({ className }: RoomsListProps) => {
+const RoomsList = ({ className, rooms }: RoomsListProps) => {
     const { t } = useTranslation()
 
     return (
@@ -20,15 +23,12 @@ const RoomsList = ({ className }: RoomsListProps) => {
                 <h2>{t('mainRoomsTitle')}</h2>
             </div>
             <div className={cls.RoomsListContainer}>
-                {[...new Array(5)].map((value, index, array) => (
+                {rooms.map((value, index, array) => (
                     <RoomCard
                         key={index}
                         className={cls.Card}
                         data-key={index}
-                        room={{
-                            roomId: randomString(),
-                            participants: ['Alex', 'Nikolay', 'George']
-                        }}
+                        room={value}
                     />
                 ))}
             </div>

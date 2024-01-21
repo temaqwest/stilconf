@@ -1,11 +1,11 @@
 import React, { ReactNode, useEffect, useRef } from 'react'
 import { classNames } from '@/shared/lib/classNames/classNames'
 import cls from './Chat.module.scss'
-import { ChatData } from '.././api/types'
+import { ChatMessagePayload } from '.././api/types'
 
 interface ChatProps {
     className?: string
-    chatData: ChatData
+    chatData: Array<ChatMessagePayload>
     actionSlot: ReactNode
 }
 
@@ -39,12 +39,12 @@ const Chat = ({ className, chatData, actionSlot }: ChatProps) => {
             top: chatContainer.current.scrollHeight + 1000,
             behavior: 'smooth'
         })
-    }, [chatData.content.length])
+    }, [chatData.length])
 
     return (
         <div className={classNames(cls?.Chat, {}, [className])}>
             <div className={cls.ChatContent} ref={chatContainer}>
-                {chatData.content.map((message) => (
+                {chatData.map((message) => (
                     <ChatMessage
                         key={message.date}
                         message={message.content}

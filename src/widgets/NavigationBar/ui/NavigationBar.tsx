@@ -11,12 +11,17 @@ import { LanguageSwitcher } from '@/features/LanguageSwitcher'
 
 interface NavbarProps {
     className?: string
+    hide?: boolean
 }
 
-const NavigationBar = ({ className }: NavbarProps) => {
+const NavigationBar = ({ className, hide = false }: NavbarProps) => {
     return (
-        <div className={classNames(cls?.navbar, {}, [className])}>
-            <div className={cls.navbarTop}>
+        <div
+            className={classNames(cls?.Navbar, { [cls.Hide]: hide }, [
+                className
+            ])}
+        >
+            <div className={cls.NavbarTop}>
                 <ThemeSwitcher />
                 <LanguageSwitcher />
             </div>
@@ -25,7 +30,7 @@ const NavigationBar = ({ className }: NavbarProps) => {
                     key={path}
                     to={path}
                     route={key as AppRoutes}
-                    className={cls.navbarItem}
+                    className={cls.NavbarItem}
                 />
             ))}
         </div>

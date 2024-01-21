@@ -26,5 +26,10 @@
     "users": "Users",
     "goBackToHome": "Redirect to Home Page",
     "notFound": "Page not found",
-    "roomName": "Room "
+    "roomName": "Room ",
+  "hello": "Hello",
+    "WhatIsYourName": "What is your name?",
+    "WhatIsYourNameInputPlaceholder": "Maybe Muhammad?",
+  "Save": "Save",
+    "noRegisteredUsers": "Empty room"
 }

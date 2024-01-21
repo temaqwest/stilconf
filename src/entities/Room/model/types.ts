@@ -1,4 +1,9 @@
+import { RegisteredUser } from '@/entities/User'
+
 export type RoomType = {
-    roomId: string
-    participants: string[]
+    chatId: string
+    content: any[]
+    createdAt: string
+    id: number
+    registeredUsers: RegisteredUser[]
 }

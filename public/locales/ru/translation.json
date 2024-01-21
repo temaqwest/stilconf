@@ -26,5 +26,10 @@
     "users": "Пользователи",
     "goBackToHome": "Вернуться на главную",
     "notFound": "Запрашиваемой страницы не существует \uD83D\uDE22",
-    "roomName": "Комната "
+    "roomName": "Комната ",
+  "hello": "Привет",
+    "WhatIsYourName": "Как к вам обращаться?",
+    "WhatIsYourNameInputPlaceholder": "Может Мухаммад?",
+  "Save": "Сохранить",
+    "noRegisteredUsers": "Эта комната пуста"
 }

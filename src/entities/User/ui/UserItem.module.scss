@@ -1,5 +1,6 @@
 .UserItem {
-    display: block;
+    display: inline-flex;
+    align-items: center;
     width: 100%;
     padding: 0.5rem;
     font-size: var(--fz-l);
@@ -8,6 +9,15 @@
 
 .UserName {
     margin-left: 1rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    display: block;
+}
+
+.UserAvatar {
+    min-height: 3rem;
+    min-width: 3rem;
 }
 
 .UserContainer {

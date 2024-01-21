@@ -15,7 +15,7 @@
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
-    "plugins": ["@typescript-eslint", "react", "i18next", "unused-imports"],
+    "plugins": ["@typescript-eslint", "react", "i18next", "unused-imports","import"],
     "rules": {
         "indent": ["error", 4],
         "linebreak-style": ["error", "unix"],
@@ -47,5 +47,27 @@
                 "ignoreTemplateLiterals": true
             }
         ]
+//        "import/no-restricted-paths": [
+//            "error", {
+//                "zones": [{
+//                    "target": ["./src/lib.ts"],
+//                    "from": ["./src/files/*.*"],
+//                    "message": "Shared слой не может содержать внутри себя зависимости других слоёв"
+//                }]
+//            }
+//        ]
+    },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [
+                    ".ts",
+                    ".tsx"
+                ]
+            },
+            "typescript": {
+                "project": "."
+            }
+        }
     }
 }

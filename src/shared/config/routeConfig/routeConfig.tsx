@@ -4,6 +4,7 @@ import { ConferencePage } from '@/pages/ConferencePage'
 import { CreateSessionPage } from '@/pages/CreateSessionPage'
 import { MainPage } from '@/pages/MainPage'
 import { NotFoundPage } from '@/pages/NotFoundPage'
+import { WhatsYourNameTraveler } from '@/pages/WhatsYourNameTraveler'
 
 export enum AppRoutes {
     MAIN = 'main',
@@ -11,6 +12,7 @@ export enum AppRoutes {
     NOTFOUND = 'notfound',
     JOIN = 'join',
     JOINDETAIL = 'joindetail',
+    WHATSYOURNAMETRAVELER = 'whatsyournametraveler',
     CONFERENCE = 'conference'
 }
 
@@ -20,6 +22,7 @@ export const RoutePaths: Record<AppRoutes, string> = {
     [AppRoutes.CONFERENCE]: '/conference/:roomId',
     [AppRoutes.JOIN]: '/join',
     [AppRoutes.JOINDETAIL]: '/join/:roomId',
+    [AppRoutes.WHATSYOURNAMETRAVELER]: '/whatsyournametraveler',
     [AppRoutes.NOTFOUND]: '*'
 }
 
@@ -49,6 +52,10 @@ export const routeConfig: Record<AppRoutes, RouteProps> = {
     [AppRoutes.CONFERENCE]: {
         path: RoutePaths.conference,
         element: <ConferencePage />
+    },
+    [AppRoutes.WHATSYOURNAMETRAVELER]: {
+        path: RoutePaths.whatsyournametraveler,
+        element: <WhatsYourNameTraveler />
     },
     [AppRoutes.NOTFOUND]: {
         path: RoutePaths.notfound,

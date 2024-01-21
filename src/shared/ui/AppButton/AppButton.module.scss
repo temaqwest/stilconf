@@ -7,11 +7,6 @@
     }
 }
 
-.secondary {
-    background: var(--medium-dark);
-    color: var(--neutral-8);
-}
-
 .primary,
 .secondary {
     padding: 8px 16px;
@@ -26,6 +21,11 @@
     &:hover {
         opacity: 0.75;
     }
+}
+
+.secondary {
+    background: var(--medium-dark);
+    color: var(--neutral-8);
 }
 
 .fab {
