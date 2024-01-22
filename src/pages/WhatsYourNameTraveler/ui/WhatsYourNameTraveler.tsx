@@ -28,9 +28,9 @@ const WhatsYourNameTraveler = ({ className }: WhatsYourNameTravelerProps) => {
 
             console.log({ newUser })
 
-            localStorage.setItem('user', newUser.data.username)
-            localStorage.setItem('userId', newUser.data.userId)
-            localStorage.setItem('speed', newUser.data.speed)
+            sessionStorage.setItem('user', newUser.data.username)
+            sessionStorage.setItem('userId', newUser.data.userId)
+            sessionStorage.setItem('speed', newUser.data.speed)
 
             navigate(RoutePaths.main)
         } catch (e) {

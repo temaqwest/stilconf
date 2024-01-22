@@ -16,7 +16,7 @@ function App() {
     console.log({ loc: location.pathname, conf: RoutePaths.conference })
     useEffect(() => {
         if (
-            !localStorage.getItem('user') &&
+            !sessionStorage.getItem('user') &&
             location.pathname !== RoutePaths.whatsyournametraveler
         ) {
             navigate(RoutePaths.whatsyournametraveler)

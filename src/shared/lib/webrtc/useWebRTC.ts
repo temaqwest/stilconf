@@ -3,8 +3,28 @@ import useStateWithCallback from '@/shared/lib/stateWithCallback/useStateWithCal
 import { SocketEvent, useSocket } from '@/shared/api'
 import { useUserStream } from '@/widgets/PreviewStream/lib/useUserStream'
 import { chatApi } from '@/entities/Chat'
+import { User } from '@/entities/User'
+import { UserSpeed } from '@/entities/User/model/types'
 
 const LOCAL_VIDEO = 'LOCAL_VIDEO'
+const WIDTH_CONSTRAINTS = { min: 224, max: 480 }
+const HEIGHT_CONSTRAINTS = { min: 144, max: 288 }
+const ICE_SERVERS_URLS = [
+    'stun:stun.l.google.com:19302',
+    'stun:stun1.l.google.com:19302',
+    'stun:stun2.l.google.com:19302',
+    'stun:stun3.l.google.com:19302',
+    'stun:stun4.l.google.com:19302',
+    'stun:stun.ekiga.net',
+    'stun:stun.ideasip.com',
+    'stun:stun.rixtelecom.se',
+    'stun:stun.schlund.de',
+    'stun:stun.stunprotocol.org:3478',
+    'stun:stun.voiparound.com',
+    'stun:stun.voipbuster.com',
+    'stun:stun.voipstunt.com',
+    'stun:stun.voxgratia.org'
+]
 
 export default function useWebRTC(roomId: string) {
     const [clients, updateClients] = useStateWithCallback([])
@@ -14,6 +34,7 @@ export default function useWebRTC(roomId: string) {
             if (!clients.includes(newClient)) {
                 updateClients((list: any) => [...list, newClient], callback)
             }
+            console.log({ clients })
         },
         [clients, updateClients]
     )
@@ -25,8 +46,34 @@ export default function useWebRTC(roomId: string) {
     })
 
     const socket = useSocket()
-    const { getStream, abortStream, startCapture, toggleAudio, toggleVideo } =
-        useUserStream()
+    const {
+        getStream,
+        abortStream,
+        startCapture,
+        toggleAudio,
+        toggleVideo,
+        setMediaBitrates
+    } = useUserStream()
+
+    function toggleSound(flag: boolean) {
+        toggleAudio(localMediaStream.current, flag)
+    }
+
+    function toggleCamera(flag: boolean) {
+        toggleVideo(localMediaStream.current, flag)
+    }
+
+    function getUserRequestedBitrate(id: string) {
+        let userSpeed = UserSpeed.KB100
+        const allUsers = JSON.parse(
+            sessionStorage.getItem('allUsers')
+        ) as User[]
+        const exact = allUsers.find((user) => user.userId === id)
+
+        if (exact?.speed) userSpeed = exact.speed
+
+        return userSpeed === '2mb' ? 2000 : userSpeed === '500kb' ? 500 : 100
+    }
 
     useEffect(() => {
         async function handleNewPeer(data: {
@@ -46,10 +93,7 @@ export default function useWebRTC(roomId: string) {
                 new RTCPeerConnection({
                     iceServers: [
                         {
-                            urls: [
-                                'stun:stun.l.google.com:19302',
-                                'stun:stun1.l.google.com:19302'
-                            ]
+                            urls: ICE_SERVERS_URLS
                         }
                     ]
                 })
@@ -62,7 +106,7 @@ export default function useWebRTC(roomId: string) {
                         event: SocketEvent.RelayICE,
                         data: {
                             peerId: normalizedData.peerId,
-                            iceCandidate: JSON.stringify(event.candidate)
+                            iceCandidate: event.candidate
                         }
                     })
                 }
@@ -76,17 +120,38 @@ export default function useWebRTC(roomId: string) {
                 tracksNumber++
 
                 if (tracksNumber === 2) {
+                    tracksNumber = 0
                     // vid && audio received
                     addNewClient(normalizedData.peerId, () => {
-                        peerMediaElements.current[
-                            normalizedData.peerId
-                        ].srcObject = remoteStream
+                        if (peerMediaElements.current[normalizedData.peerId]) {
+                            peerMediaElements.current[
+                                normalizedData.peerId
+                            ].srcObject = remoteStream
+                        } else {
+                            let settled = false
+                            const interval = setInterval(() => {
+                                if (
+                                    peerMediaElements.current[
+                                        normalizedData.peerId
+                                    ]
+                                ) {
+                                    peerMediaElements.current[
+                                        normalizedData.peerId
+                                    ].srcObject = remoteStream
+                                    settled = true
+                                }
+
+                                if (settled) {
+                                    clearInterval(interval)
+                                }
+                            }, 1000)
+                        }
                     })
                 }
             }
 
             localMediaStream.current.getTracks().forEach((track) => {
-                peerConnections.current[normalizedData.peerId].addTrack(
+                peerConnections.current[normalizedData.peerId]?.addTrack(
                     track,
                     localMediaStream.current
                 )
@@ -96,17 +161,23 @@ export default function useWebRTC(roomId: string) {
                 const offer =
                     await peerConnections.current[
                         normalizedData.peerId
-                    ].createOffer()
+                    ]?.createOffer()
 
                 await peerConnections.current[
                     normalizedData.peerId
                 ].setLocalDescription(offer)
 
+                console.log({ offer })
+                offer.sdp = setMediaBitrates(
+                    offer.sdp,
+                    getUserRequestedBitrate(sessionStorage.getItem('userId'))
+                )
+
                 socket.sendMessage({
                     event: SocketEvent.RelaySDP,
                     data: {
                         peerId: normalizedData.peerId,
-                        sessionDescription: JSON.stringify(offer)
+                        sessionDescription: offer
                     }
                 })
             }
@@ -120,37 +191,51 @@ export default function useWebRTC(roomId: string) {
             event: SocketEvent.SESSION_DESCRIPTION
             data: { peerId: string; sessionDescription: string }
         }) {
-            const remoteDescription = JSON.parse(
-                message.data.sessionDescription
-            )
+            console.group('setremotemedia')
+            console.log('remote', { message })
+            const remoteDescription = message.data.sessionDescription
             const peerId = message.data.peerId
 
-            await peerConnections.current[peerId].setRemoteDescription(
-                new RTCSessionDescription(remoteDescription)
+            await peerConnections.current[peerId]?.setRemoteDescription(
+                new RTCSessionDescription(remoteDescription as any)
             )
 
-            if (remoteDescription.type === 'offer') {
+            console.log('IT IS REMOTEDESCRIPTION', remoteDescription)
+            if ((remoteDescription as any).type === 'offer') {
                 const answer =
-                    await peerConnections.current[peerId].createAnswer()
+                    await peerConnections.current[peerId]?.createAnswer()
 
-                await peerConnections.current[peerId].setLocalDescription(
+                console.log('INSIDE CREATING ANSWER', {
+                    peerConnections,
+                    peerId,
+                    answer
+                })
+
+                await peerConnections.current[peerId]?.setLocalDescription(
                     answer
                 )
+
+                console.log({ answer })
+                answer.sdp = setMediaBitrates(
+                    answer.sdp,
+                    getUserRequestedBitrate(sessionStorage.getItem('userId'))
+                )
+
+                console.warn('ANSWER', answer)
 
                 socket.sendMessage({
                     event: SocketEvent.RelaySDP,
                     data: {
                         peerId,
-                        sessionDescription: JSON.stringify(answer)
+                        sessionDescription: answer
                     }
                 })
             }
+
+            console.groupEnd()
         }
 
-        socket.onMessage(
-            SocketEvent.SESSION_DESCRIPTION,
-            (setRemoteMedia) => {}
-        )
+        socket.onMessage(SocketEvent.SESSION_DESCRIPTION, setRemoteMedia)
     }, [])
 
     useEffect(() => {
@@ -160,15 +245,15 @@ export default function useWebRTC(roomId: string) {
                 event: SocketEvent.ICE_CANDIDATE
                 data: { peerId: string; iceCandidate: string }
             }) => {
-                if (!message.data.iceCandidate) return
-
                 console.log({
                     raw: message.data.iceCandidate,
-                    parsed: JSON.parse(message.data.iceCandidate)
+                    parsed: message.data.iceCandidate,
+                    peerConnections,
+                    peerId: message.data.peerId
                 })
 
-                peerConnections.current[message.data.peerId].addIceCandidate(
-                    new RTCIceCandidate(JSON.parse(message.data.iceCandidate))
+                peerConnections.current[message.data.peerId]?.addIceCandidate(
+                    new RTCIceCandidate(message.data.iceCandidate as any)
                 )
             }
         )
@@ -180,7 +265,7 @@ export default function useWebRTC(roomId: string) {
             data: { peerId: string }
         }) {
             if (message.data.peerId in peerConnections.current) {
-                peerConnections.current[message.data.peerId].close()
+                peerConnections.current[message.data.peerId]?.close()
 
                 delete peerConnections.current[message.data.peerId]
                 delete peerMediaElements.current[message.data.peerId]
@@ -195,7 +280,13 @@ export default function useWebRTC(roomId: string) {
     }, [])
 
     useEffect(() => {
-        getStream(true, true)
+        getStream({
+            audio: true,
+            video: {
+                width: WIDTH_CONSTRAINTS,
+                height: HEIGHT_CONSTRAINTS
+            }
+        })
             .then((mediaStreamResponse) => {
                 localMediaStream.current = mediaStreamResponse
 
@@ -215,23 +306,24 @@ export default function useWebRTC(roomId: string) {
                 socket.sendMessage({
                     event: SocketEvent.Join,
                     data: {
-                        userId: localStorage.getItem('userId'),
-                        username: localStorage.getItem('user'),
-                        bitrate: localStorage.getItem('speed'),
+                        userId: sessionStorage.getItem('userId'),
+                        username: sessionStorage.getItem('user'),
+                        bitrate: sessionStorage.getItem('speed'),
                         roomId: roomId
                     }
                 })
 
                 await chatApi.registerUserInChat(
                     roomId,
-                    localStorage.getItem('userId'),
-                    localStorage.getItem('user')
+                    sessionStorage.getItem('userId'),
+                    sessionStorage.getItem('user')
                 )
             })
 
         return () => {
             abortStream(localMediaStream.current)
             socket.sendMessage({ event: SocketEvent.Leave, data: { roomId } })
+            // socket.instance.close()
         }
     }, [roomId])
 
@@ -241,6 +333,8 @@ export default function useWebRTC(roomId: string) {
 
     return {
         clients,
-        provideMediaRef
+        provideMediaRef,
+        toggleSound,
+        toggleCamera
     }
 }

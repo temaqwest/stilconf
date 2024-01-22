@@ -5,7 +5,7 @@ const BASE = 'users'
 
 export default {
     getUsers: (): Promise<Array<User>> => {
-        return axiosInstance.get(BASE)
+        return axiosInstance.get(BASE).then((data) => data.data.data)
     },
     createUser: (payload: UserPayload): Promise<CreateUserResponse> => {
         return axiosInstance.post(BASE, payload).then((data) => data.data)
@@ -13,7 +13,8 @@ export default {
     deleteUser: (id: string): Promise<void> => {
         return axiosInstance.delete(`${BASE}/${id}`)
     },
-    getUser: (id: string): Promise<User> => {
-        return axiosInstance.get(`${BASE}/${id}`).then((data) => data.data)
+    getUser: async (id: string): Promise<User> => {
+        const data = await axiosInstance.get(`${BASE}/${id}`)
+        return data.data.data
     }
 }

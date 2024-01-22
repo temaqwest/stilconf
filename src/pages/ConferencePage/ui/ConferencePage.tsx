@@ -9,6 +9,9 @@ import { SocketEvent, useSocket } from '@/shared/api'
 import { RoutePaths } from '@/shared/config/routeConfig/routeConfig'
 import { RoomType } from '@/entities/Room'
 import useWebRTC from '@/shared/lib/webrtc/useWebRTC'
+import { classNames } from '@/shared/lib/classNames/classNames'
+import AppIcon from '@/shared/ui/AppIcon/AppIcon'
+import { User } from '@/entities/User'
 
 // setAudio(
 //     mediaStreamResponse.getAudioTracks()?.[0]?.enabled ??
@@ -37,26 +40,48 @@ function ConferencePage() {
     const { theme } = useTheme()
 
     const [chatData, setChatData] = useState([])
-    const [users, setUsers] = useState([])
+    const [users, setUsers] = useState<Record<string, string>>({
+        LOCAL_VIDEO: sessionStorage.getItem('user')
+    })
+    const [usersArr, setUsersArr] = useState<string[]>([])
     const [audio, setAudio] = useState(true)
     const [video, setVideo] = useState(true)
 
-    function changeLocalAudio() {}
-    function changeLocalVideo() {}
+    const { clients, provideMediaRef, toggleCamera, toggleSound } =
+        useWebRTC(roomId)
+
+    function changeLocalAudio() {
+        toggleSound(!audio)
+        setAudio(!audio)
+    }
+    function changeLocalVideo() {
+        toggleCamera(!video)
+        setVideo(!video)
+    }
     function leaveRoom() {
         navigate(RoutePaths.main)
     }
 
     useEffect(() => {
+        socket.connect()
+
         socket.onMessage(SocketEvent.GetRooms, (message) => {
             const room = message.data.find(
                 (room: RoomType) => room.chatId === roomId
             )
             const chat = room.content
-            const users = room.registeredUsers
+            const users: Array<User> = room.registeredUsers
+            const parsedUsers = users.reduce(
+                (acc, cv) => {
+                    acc[cv.userId] = cv.username
+                    return acc
+                },
+                {} as Record<string, string>
+            )
 
             setChatData((prevData) => [...chat])
-            setUsers(() => [...users.map((u: any) => u.username)])
+            setUsers((prevState) => ({ ...prevState, ...parsedUsers }))
+            setUsersArr(() => [...users.map((u: any) => u.username)])
             console.log({ chat, users })
         })
 
@@ -65,33 +90,48 @@ function ConferencePage() {
         })
     }, [])
 
-    const { clients, provideMediaRef } = useWebRTC(roomId)
-
     return (
         <div className={cls.ConferencePage}>
             <ConferenceStreams className={cls.ConferenceContent}>
                 {clients.map((clientId: string) => (
-                    // <StreamUser
-                    //     theme={theme}
-                    //     key={s.id}
-                    //     src={s}
-                    //     size={getStreamVideoTagSize(streams.length)}
-                    //     username={s.id}
-                    // />
-                    <div key={clientId}>
+                    <div
+                        key={clientId}
+                        title={clientId}
+                        className={classNames(
+                            cls?.StreamUser,
+                            { [cls.Speaking]: false },
+                            [
+                                cls[getStreamVideoTagSize(clients.length)],
+                                cls[theme]
+                            ]
+                        )}
+                    >
                         <video
                             playsInline
-                            muted
                             autoPlay
+                            className={cls.StreamUserVideo}
                             ref={(instance) => {
                                 provideMediaRef(clientId, instance)
                             }}
-                        ></video>
+                        />
+                        <div className={cls.StreamUserBottom}>
+                            <span className={cls.Username}>
+                                {users[clientId]}
+                            </span>
+                            <AppIcon
+                                className={classNames(
+                                    cls.Microphone,
+                                    { [cls.MicrophoneSpeaking]: false },
+                                    []
+                                )}
+                                name={'microphone'}
+                            />
+                        </div>
                     </div>
                 ))}
             </ConferenceStreams>
             <BottomConference
-                users={users}
+                users={usersArr}
                 chatData={chatData}
                 localAudioState={audio}
                 localVideoState={video}

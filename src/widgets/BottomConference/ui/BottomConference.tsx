@@ -161,8 +161,8 @@ const BottomConference: FC<BottomConferenceProps> = ({
         socket.sendMessage({
             event: SocketEvent.BroadcastMessage,
             data: {
-                userId: localStorage.getItem('userId'),
-                username: localStorage.getItem('user'),
+                userId: sessionStorage.getItem('userId'),
+                username: sessionStorage.getItem('user'),
                 content: value,
                 date: new Date().toISOString(),
                 chatId: roomId

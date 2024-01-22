@@ -37,7 +37,7 @@ const PreviewStream: FC<PreviewStreamProps> = ({
 
     useEffect(() => {
         console.log('GETTING STREAMS')
-        getStream(audio, camera)
+        getStream({ audio, video: camera })
             .then((mediaStreamResponse) => {
                 streamData && clearTracks()
                 console.log('do', {

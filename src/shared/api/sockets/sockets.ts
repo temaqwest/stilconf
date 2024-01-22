@@ -1,6 +1,6 @@
 import { SocketEvent, SocketMessage } from '@/shared/api'
 
-const socketURL = 'ws://localhost:3001'
+const socketURL = 'ws://192.168.65.67:3001'
 
 let socketInstance = new WebSocket(socketURL)
 
@@ -8,12 +8,18 @@ export function useSocket(url = socketURL) {
     let instance: WebSocket
     connect()
 
-    function connect() {
+    function connect(callback?: () => void) {
         if (socketInstance) {
             instance = socketInstance
         } else {
             instance = new WebSocket(url)
             socketInstance = instance
+        }
+
+        if (callback) {
+            instance.onopen = () => {
+                callback()
+            }
         }
     }
 
@@ -30,13 +36,18 @@ export function useSocket(url = socketURL) {
 
     function onMessage(
         event: SocketEvent,
-        callback: (message: SocketMessage) => void
+        callback: (message: SocketMessage) => void,
+        options: AddEventListenerOptions = {}
     ) {
-        instance.addEventListener('message', (message) => {
-            const response = parseMessage(message)
+        instance.addEventListener(
+            'message',
+            (message) => {
+                const response = parseMessage(message)
 
-            if (response.event === event) callback(response)
-        })
+                if (response.event === event) callback(response)
+            },
+            options
+        )
     }
 
     function parseMessage(message: MessageEvent): SocketMessage {
@@ -48,5 +59,5 @@ export function useSocket(url = socketURL) {
         }
     }
 
-    return { sendMessage, parseMessage, onMessage, instance }
+    return { sendMessage, parseMessage, onMessage, instance, connect }
 }
