@@ -27,6 +27,7 @@ const ICE_SERVERS_URLS = [
 ]
 
 export default function useWebRTC(roomId: string) {
+    const abortController = new AbortController()
     const [clients, updateClients] = useStateWithCallback([])
 
     const addNewClient = useCallback(
@@ -34,7 +35,6 @@ export default function useWebRTC(roomId: string) {
             if (!clients.includes(newClient)) {
                 updateClients((list: any) => [...list, newClient], callback)
             }
-            console.log({ clients })
         },
         [clients, updateClients]
     )
@@ -49,7 +49,6 @@ export default function useWebRTC(roomId: string) {
     const {
         getStream,
         abortStream,
-        startCapture,
         toggleAudio,
         toggleVideo,
         setMediaBitrates
@@ -64,6 +63,8 @@ export default function useWebRTC(roomId: string) {
     }
 
     function getUserRequestedBitrate(id: string) {
+        if (!id) return 500
+
         let userSpeed = UserSpeed.KB100
         const allUsers = JSON.parse(
             sessionStorage.getItem('allUsers')
@@ -168,6 +169,8 @@ export default function useWebRTC(roomId: string) {
                 ].setLocalDescription(offer)
 
                 console.log({ offer })
+                if (!offer?.sdp) return
+
                 offer.sdp = setMediaBitrates(
                     offer.sdp,
                     getUserRequestedBitrate(sessionStorage.getItem('userId'))
@@ -183,7 +186,9 @@ export default function useWebRTC(roomId: string) {
             }
         }
 
-        socket.onMessage(SocketEvent.AddPeer, handleNewPeer)
+        socket.onMessage(SocketEvent.AddPeer, handleNewPeer, {
+            signal: abortController.signal
+        })
     }, [])
 
     useEffect(() => {
@@ -200,12 +205,11 @@ export default function useWebRTC(roomId: string) {
                 new RTCSessionDescription(remoteDescription as any)
             )
 
-            console.log('IT IS REMOTEDESCRIPTION', remoteDescription)
             if ((remoteDescription as any).type === 'offer') {
                 const answer =
                     await peerConnections.current[peerId]?.createAnswer()
 
-                console.log('INSIDE CREATING ANSWER', {
+                console.log('remotedescription.type === "offer"', {
                     peerConnections,
                     peerId,
                     answer
@@ -216,6 +220,8 @@ export default function useWebRTC(roomId: string) {
                 )
 
                 console.log({ answer })
+                if (!answer?.sdp) return
+
                 answer.sdp = setMediaBitrates(
                     answer.sdp,
                     getUserRequestedBitrate(sessionStorage.getItem('userId'))
@@ -235,7 +241,9 @@ export default function useWebRTC(roomId: string) {
             console.groupEnd()
         }
 
-        socket.onMessage(SocketEvent.SESSION_DESCRIPTION, setRemoteMedia)
+        socket.onMessage(SocketEvent.SESSION_DESCRIPTION, setRemoteMedia, {
+            signal: abortController.signal
+        })
     }, [])
 
     useEffect(() => {
@@ -245,7 +253,7 @@ export default function useWebRTC(roomId: string) {
                 event: SocketEvent.ICE_CANDIDATE
                 data: { peerId: string; iceCandidate: string }
             }) => {
-                console.log({
+                console.log('on ICE_CANDIDATE', {
                     raw: message.data.iceCandidate,
                     parsed: message.data.iceCandidate,
                     peerConnections,
@@ -255,6 +263,9 @@ export default function useWebRTC(roomId: string) {
                 peerConnections.current[message.data.peerId]?.addIceCandidate(
                     new RTCIceCandidate(message.data.iceCandidate as any)
                 )
+            },
+            {
+                signal: abortController.signal
             }
         )
     }, [])
@@ -276,7 +287,15 @@ export default function useWebRTC(roomId: string) {
             }
         }
 
-        socket.onMessage(SocketEvent.RemovePeer, handleRemovePeer)
+        socket.onMessage(SocketEvent.RemovePeer, handleRemovePeer, {
+            signal: abortController.signal
+        })
+    }, [])
+
+    useEffect(() => {
+        return () => {
+            abortController.abort()
+        }
     }, [])
 
     useEffect(() => {

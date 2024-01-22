@@ -13,24 +13,6 @@ import { classNames } from '@/shared/lib/classNames/classNames'
 import AppIcon from '@/shared/ui/AppIcon/AppIcon'
 import { User } from '@/entities/User'
 
-// setAudio(
-//     mediaStreamResponse.getAudioTracks()?.[0]?.enabled ??
-//     false
-// )
-// setVideo(
-//     mediaStreamResponse.getVideoTracks()?.[0]?.enabled ??
-//     false
-// )
-
-// function changeLocalAudio() {
-//     toggleAudio(streamData, !audio)
-//     setAudio(!audio)
-// }
-// function changeLocalVideo() {
-//     toggleVideo(streamData, !video)
-//     setVideo(!video)
-// }
-
 function ConferencePage() {
     const navigate = useNavigate()
     const { roomId } = useParams()
@@ -40,9 +22,7 @@ function ConferencePage() {
     const { theme } = useTheme()
 
     const [chatData, setChatData] = useState([])
-    const [users, setUsers] = useState<Record<string, string>>({
-        LOCAL_VIDEO: sessionStorage.getItem('user')
-    })
+    const [users, setUsers] = useState<Record<string, string>>({})
     const [usersArr, setUsersArr] = useState<string[]>([])
     const [audio, setAudio] = useState(true)
     const [video, setVideo] = useState(true)
@@ -62,8 +42,28 @@ function ConferencePage() {
         navigate(RoutePaths.main)
     }
 
+    function getUsersListAssoc() {
+        const users: User[] = JSON.parse(sessionStorage.getItem('allUsers'))
+
+        return users.reduce(
+            (acc, cv) => {
+                if (cv.userId === sessionStorage.getItem('userId')) {
+                    acc['LOCAL_VIDEO'] = sessionStorage.getItem('user')
+                } else {
+                    acc[cv.userId] = cv.username
+                }
+
+                return acc
+            },
+            {} as Record<string, string>
+        )
+    }
+
     useEffect(() => {
         socket.connect()
+        socket.sendMessage({ event: SocketEvent.GetRooms })
+
+        setUsers(() => getUsersListAssoc())
 
         socket.onMessage(SocketEvent.GetRooms, (message) => {
             const room = message.data.find(
@@ -71,16 +71,9 @@ function ConferencePage() {
             )
             const chat = room.content
             const users: Array<User> = room.registeredUsers
-            const parsedUsers = users.reduce(
-                (acc, cv) => {
-                    acc[cv.userId] = cv.username
-                    return acc
-                },
-                {} as Record<string, string>
-            )
 
             setChatData((prevData) => [...chat])
-            setUsers((prevState) => ({ ...prevState, ...parsedUsers }))
+            setUsers(() => getUsersListAssoc())
             setUsersArr(() => [...users.map((u: any) => u.username)])
             console.log({ chat, users })
         })
