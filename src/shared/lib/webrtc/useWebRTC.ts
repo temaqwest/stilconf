@@ -169,7 +169,6 @@ export default function useWebRTC(roomId: string) {
                 ].setLocalDescription(offer)
 
                 console.log({ offer })
-                if (!offer?.sdp) return
 
                 offer.sdp = setMediaBitrates(
                     offer.sdp,
@@ -220,7 +219,6 @@ export default function useWebRTC(roomId: string) {
                 )
 
                 console.log({ answer })
-                if (!answer?.sdp) return
 
                 answer.sdp = setMediaBitrates(
                     answer.sdp,
